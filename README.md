@@ -1,4 +1,4 @@
-# JDodoBot
+# PUBG4J
 A Java wrapper for [pubgtracker.com](https://pubgtracker.com/)
 
 
