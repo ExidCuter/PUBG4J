@@ -24,3 +24,6 @@ catch (Exception e){
 	e.printStackTrace();
 }
 ```
+### Jar file
+
+`.jar` file is located in `/out` folder.
