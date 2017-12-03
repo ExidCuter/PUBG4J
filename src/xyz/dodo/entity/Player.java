@@ -1,4 +1,4 @@
-package dodo.pubg.entity;
+package xyz.dodo.entity;
 
 
 public class Player {

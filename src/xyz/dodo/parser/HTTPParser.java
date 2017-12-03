@@ -1,4 +1,4 @@
-package dodo.pubg.parser;
+package xyz.dodo.parser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,6 +20,7 @@ public class HTTPParser {
                 response.append(inputLine);
             }
             in.close();
+            System.out.println(response.toString());
             return response.toString();
         }
         catch (Exception e){

@@ -1,9 +1,9 @@
-package dodo.pubg.pubg;
+package xyz.dodo.pubg;
 
 
-import dodo.pubg.entity.PubgData;
-import dodo.pubg.parser.HTTPParser;
-import dodo.pubg.parser.JSONParser;
+import xyz.dodo.entity.PubgData;
+import xyz.dodo.parser.HTTPParser;
+import xyz.dodo.parser.JSONParser;
 
 public class PUBG {
     private String apiKey;
@@ -11,7 +11,8 @@ public class PUBG {
     public PUBG(String apyKey) {
         this.apiKey = apyKey;
     }
-    public PubgData getPlayerInfo(String nickname) throws Exception {
+    public PubgData getPlayerInfo(String nickname) {
         return JSONParser.getDataFromJSON(HTTPParser.getStatsfromNickname(nickname,apiKey));
     }
+
 }

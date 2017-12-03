@@ -1,5 +1,6 @@
-package dodo.pubg.entity;
+package xyz.dodo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PubgData {
@@ -17,6 +18,21 @@ public class PubgData {
 
     public List<League> getLeagues() {
         return leagues;
+    }
+
+    public League getLeague(League.Region region, League.Mode mode) {
+        for (League league : leagues) {
+            if (league.getRegion() == region && league.getMode() == mode){
+                return  league;
+            }
+        }
+        return new League();
+    }
+
+    public PubgData(){
+        id = -999999;
+        player = new Player("unknown", "No Data", "Error");
+        leagues = new ArrayList<>();
     }
 
     public PubgData(int id, Player player, List<League> leagues) {
