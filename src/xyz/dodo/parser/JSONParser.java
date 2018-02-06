@@ -1,9 +1,6 @@
 package xyz.dodo.parser;
 
-import xyz.dodo.entity.League;
-import xyz.dodo.entity.Player;
-import xyz.dodo.entity.PubgData;
-import xyz.dodo.entity.Stats;
+import xyz.dodo.entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,27 +11,32 @@ public class JSONParser {
         try {
             JSONObject jsonObject = new JSONObject(json);
 
-            JSONArray leagues = jsonObject.getJSONArray("stats");
-            ArrayList<League> leaguesArray = new ArrayList<>();
+            if (jsonObject.has("error")){
+                return new PubgData(new SuccessCode(jsonObject.getString("error"), SuccessCode.Type.error));
+            }
+            else {
+                JSONArray leagues = jsonObject.getJSONArray("stats");
+                ArrayList<League> leaguesArray = new ArrayList<>();
 
-            for (int i = 0; i < leagues.length(); i++) {
-                ArrayList<Stats> statsArray = new ArrayList<>();
-                JSONObject league = leagues.getJSONObject(i);
-                JSONArray stats = league.getJSONArray("stats");
+                for (int i = 0; i < leagues.length(); i++) {
+                    ArrayList<Stats> statsArray = new ArrayList<>();
+                    JSONObject league = leagues.getJSONObject(i);
+                    JSONArray stats = league.getJSONArray("stats");
 
-                for (int j = 0; j < stats.length(); j++) {
-                    JSONObject stat = stats.getJSONObject(j);
-                    statsArray.add(new Stats(stat.getString("label"), stat.getString("category"), stat.getString("field"), stat.getString("value")));
+                    for (int j = 0; j < stats.length(); j++) {
+                        JSONObject stat = stats.getJSONObject(j);
+                        statsArray.add(new Stats(stat.getString("label"), stat.getString("category"), stat.getString("field"), stat.getString("value")));
+                    }
+
+                    leaguesArray.add(new League(league.getString("region"), league.getString("season"), league.getString("mode"), statsArray));
                 }
 
-                leaguesArray.add(new League(league.getString("region"), league.getString("season"), league.getString("mode"), statsArray));
+                Player player = new Player(jsonObject.getString("accountId"), jsonObject.getString("nickname"), jsonObject.getString("avatar"));
+                return new PubgData(jsonObject.getInt("pubgTrackerId"), player, leaguesArray,new SuccessCode("Everything is ok", SuccessCode.Type.ok));
             }
-
-            Player player = new Player(jsonObject.getString("accountId"), jsonObject.getString("nickname"), jsonObject.getString("avatar"));
-            return new PubgData(jsonObject.getInt("pubgTrackerId"), player, leaguesArray);
         }
         catch (Exception e){
-            return new PubgData();
+            return new PubgData(new SuccessCode("Unknown Error WTF IS GOING ON!!!", SuccessCode.Type.error));
         }
     }
 }
