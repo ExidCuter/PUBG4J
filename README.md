@@ -16,7 +16,7 @@ Java
 PUBG pubg = new PUBG("YOUR-API-KEY");
 PubgData data = pubg.getPlayerInfo("DodoDodovic");
 if (data.getResult().isOk()) {
-	System.out.println(data.getId());
+    System.out.println(data.getId());
     System.out.println(data.getPlayer());
     System.out.println(data.getLeagues());
 }
