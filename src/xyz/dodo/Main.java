@@ -6,7 +6,7 @@ import xyz.dodo.pubg.PUBG;
 public class Main {
     public static void main(String[] args) {
         PUBG pubg = new PUBG("YOUR-API-KEY");
-        PubgData data = pubg.getPlayerInfo("DodoDodovic");
+        PubgData data = pubg.getPlayerInfo("NickName");
         if (data.getResult().isOk()){
             System.out.println(data.getId());
             System.out.println(data.getPlayer());
